@@ -13,6 +13,8 @@ jobs:
       fail-fast: true
 
     steps:
-      - uses: actions/checkout@v2
-      - run: npm install -g yarn
+      - uses: sergioramos/yarn-actions/install@master
+        with:
+          frozen-lockfile: true
+      # - run: npm install -g yarn
       - run: yarn test
