@@ -9,22 +9,17 @@ import { calculateFuelRequired } from "../part-1/main";
  * @param mass
  */
 
-const calculateAdditionalFuelRequired = (mass: number): number => {
-  let accumulator: number = 0;
+const calculateAdditionalFuelRequired = (
+  mass: number,
+  accumulator: number = 0
+): number => {
+  if (mass <= 0) return 0;
 
-  const calculate = (mass: number): number => {
-    const fuelRequired: number = calculateFuelRequired(mass);
+  const fuelRequired: number = calculateFuelRequired(mass);
+  if (fuelRequired <= 0) return accumulator;
+  accumulator = accumulator + fuelRequired;
 
-    accumulator = accumulator + fuelRequired;
-
-    if (fuelRequired <= 5) return fuelRequired;
-
-    return calculate(fuelRequired);
-  };
-
-  calculate(mass);
-
-  return accumulator;
+  return calculateAdditionalFuelRequired(fuelRequired, accumulator);
 };
 
 /**
@@ -37,6 +32,10 @@ const calculateTotalAdditionalFuelRequirements = (masses: number[]) => {
   }, 0);
 };
 
-console.log(calculateTotalAdditionalFuelRequirements(moduleMasses));
+console.log("Additional Fuel Required:", calculateAdditionalFuelRequired(14));
+console.log(
+  "Total Additional Fuel Requirement:",
+  calculateTotalAdditionalFuelRequirements(moduleMasses)
+);
 
 export { calculateAdditionalFuelRequired };

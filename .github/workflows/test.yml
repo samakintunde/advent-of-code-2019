@@ -1,0 +1,18 @@
+name: Algorithm Tests
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+      fail-fast: true
+
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install -g yarn
+      - run: yarn test
